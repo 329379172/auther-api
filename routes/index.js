@@ -22,7 +22,7 @@ router.post('/async', async function(req, res) {
     let data = await api.asyncData(token);
     return res.json({code: 200, message: 'ok', data: data});
   } catch (e) {
-    return res.json({code: 400, message: e.message});
+    return res.json({code: e.message === '请先登录' ? 401 : 400, message: e.message});
   }
 });
 
@@ -32,7 +32,7 @@ router.post('/upload', async function(req, res) {
     await api.upload(token, req.body);
     return res.json({code: 200, message: 'ok'});
   } catch (e) {
-    return res.json({code: 400, message: e.message});
+    return res.json({code: e.message === '请先登录' ? 401 : 400, message: e.message});
   }
 });
 
